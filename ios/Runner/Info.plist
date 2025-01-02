@@ -49,5 +49,7 @@
 	<array>
 		<string>audio</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone access is needed to handle sound system volume changes.</string>
 </dict>
 </plist>

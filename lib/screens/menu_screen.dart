@@ -1,3 +1,4 @@
+import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:taboo/audio/audio_service.dart';
 import 'package:taboo/screens/game_setup_screen.dart';
@@ -10,13 +11,29 @@ class MenuScreen extends StatefulWidget {
   State<MenuScreen> createState() => _MenuScreenState();
 }
 
-class _MenuScreenState extends State<MenuScreen> {
+class _MenuScreenState extends State<MenuScreen> with WidgetsBindingObserver {
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     AudioService.instance.stopSoundtrack();
     AudioService.instance.startSoundtrack();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      AudioService.instance.pauseSoundtrack();
+    } else if (state == AppLifecycleState.resumed) {
+      AudioService.instance.resumeSoundtrack();
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override

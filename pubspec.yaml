@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   csv: ^6.0.0
   audioplayers: ^6.1.0
+  flutter_launcher_icons: ^0.14.2
+  audio_session: ^0.1.23
 
 dev_dependencies:
   flutter_test:
@@ -92,3 +94,9 @@ flutter:
       fonts:
         - asset: assets/fonts/anton_regular.ttf
           weight: 400
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
