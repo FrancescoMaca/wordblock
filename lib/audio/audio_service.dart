@@ -7,24 +7,22 @@ class AudioService {
   late final AudioPlayer player;
   late final AudioPlayer soundtrackPlayer;
 
-  bool isMuted = false;
-
-
   AudioService._private() {
     player = AudioPlayer();
     soundtrackPlayer = AudioPlayer();
-  }
 
-  void toggleMute() {
-    isMuted = !isMuted;
-    soundtrackPlayer.setVolume(isMuted ? 0.0 : 0.4);
-    player.setVolume(isMuted ? 0.0 : 1.0);
+    player.setPlayerMode(PlayerMode.lowLatency);
+    soundtrackPlayer.setPlayerMode(PlayerMode.mediaPlayer);
+
+    player.setAudioContext(AudioContext(iOS: AudioContextIOS(category: AVAudioSessionCategory.soloAmbient)));
+
+    soundtrackPlayer.setVolume(0.1);
+    player.setVolume(1);
   }
 
   Future<void> startSoundtrack() async {
     soundtrackPlayer.seek(Duration.zero);
     soundtrackPlayer.setReleaseMode(ReleaseMode.loop);
-    soundtrackPlayer.setVolume(0.4);
     await soundtrackPlayer.play(AssetSource('sounds/soundtrack.mp3'));
   }
 
