@@ -39,6 +39,7 @@ dependencies:
   audioplayers: ^6.1.0
   flutter_launcher_icons: ^0.14.2
   audio_session: ^0.1.23
+  flutter_native_splash: ^2.4.4
 
 dev_dependencies:
   flutter_test:
