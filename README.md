@@ -17,14 +17,15 @@ A modern take on the classic party word-guessing game Taboo, built with Flutter.
 - Background music and sound effects
 
 ## Screenshots
-<img src="screenshots/screenshot%201.png" alt="description" style="border-radius: 10px; width: 200px;"/>
-<img src="screenshots/screenshot%202.png" alt="description" style="border-radius: 10px; width: 200px;"/>
-<img src="screenshots/screenshot%203.png" alt="description" style="border-radius: 10px; width: 200px;"/>
-<img src="screenshots/screenshot%204.png" alt="description" style="border-radius: 10px; width: 200px;"/>
-<img src="screenshots/screenshot%205.png" alt="description" style="border-radius: 10px; width: 200px;"/>
-<img src="screenshots/screenshot%206.png" alt="description" style="border-radius: 10px; width: 200px;"/>
-<img src="screenshots/screenshot%207.png" alt="description" style="border-radius: 10px; width: 200px;"/>
-
+<div style="display: flex; gap: 20px; flex-wrap: wrap;">
+  <img src="screenshots/screenshot%201.png" alt="description" style="border-radius: 10px; width: 200px;"/>
+  <img src="screenshots/screenshot%202.png" alt="description" style="border-radius: 10px; width: 200px;"/>
+  <img src="screenshots/screenshot%203.png" alt="description" style="border-radius: 10px; width: 200px;"/>
+  <img src="screenshots/screenshot%204.png" alt="description" style="border-radius: 10px; width: 200px;"/>
+  <img src="screenshots/screenshot%205.png" alt="description" style="border-radius: 10px; width: 200px;"/>
+  <img src="screenshots/screenshot%206.png" alt="description" style="border-radius: 10px; width: 200px;"/>
+  <img src="screenshots/screenshot%207.png" alt="description" style="border-radius: 10px; width: 200px;"/>
+</div>
 ## Installation
 Download from [releases](link) or build from source:
 ```bash
