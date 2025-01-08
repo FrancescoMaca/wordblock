@@ -68,16 +68,6 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/to/asset-from-package
   assets:
     - assets/words.csv
     - assets/sounds/success_setup.mp3
@@ -87,7 +77,6 @@ flutter:
     - assets/sounds/skip_answer.mp3
     - assets/sounds/low_on_time.mp3
     - assets/sounds/soundtrack.mp3
-    - assets/sounds/soundtrack2.mp3
 
 
   fonts:
@@ -101,7 +90,6 @@ flutter:
       fonts:
         - asset: assets/fonts/anton_regular.ttf
           weight: 400
-
 
 flutter_launcher_icons:
   android: "launcher_icon"

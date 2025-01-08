@@ -17,7 +17,7 @@ class _MenuScreenState extends State<MenuScreen> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    AudioService.instance.stopSoundtrack();
+    AudioService.dispose();
     AudioService.instance.startSoundtrack();
   }
 
