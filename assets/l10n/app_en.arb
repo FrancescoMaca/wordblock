@@ -1,0 +1,111 @@
+{
+  "button_play": "Play!",
+  "@button_play": {
+    "description": "The play button in the home screen"
+  },
+  "title_setup_game": "Game Setup",
+  "@title_setup_game": {
+    "description": "The title of the game set up screen"
+  },
+  "title_teams": "Teams",
+  "@title_teams": {
+    "description": "The team title section"
+  },
+  "title_modes": "Modes",
+  "@title_modes": {
+    "description": "The mode title section"
+  },
+  "title_settings": "Settings",
+  "@title_settings": {
+    "description": "The settings title section"
+  },
+  "swipe": "SWIPE",
+  "@swipe": {
+    "description": "The part of the title when starting a game"
+  },
+  "down": "DOWN",
+  "@down": {
+    "description": "The part of the title when starting a game"
+  },
+  "to": "TO",
+  "@to": {
+    "description": "The part of the title when starting a game"
+  },
+  "start": "START",
+  "@start": {
+    "description": "The part of the title when starting a game"
+  },
+  "title_have_fun": "Have fun",
+  "@title_have_fun": {
+    "description": "The text when the game starts"
+  },
+  "label_swipe_down": "swipe down",
+  "@label_swipe_down": {
+    "description": "Swipe down label text"
+  },
+  "label_round_time": "Round Time: {time} seconds",
+  "@label_round_time": {
+    "description": "The label for round time",
+    "placeholders": {
+      "time": {
+        "type": "int"
+      }
+    }
+  },
+  "label_skips_allowed": "Skips Allowed: {amount}",
+  "@label_skips_allowed": {
+    "description": "The label for the skips allowed",
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "label_points_needed": "Points needed: {points}",
+  "@label_points_needed": {
+    "description": "The label for points needed to win",
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+  "label_number_of_turns": "Number of turns: {turns}",
+  "@label_number_of_turns": {
+    "description": "The label for turns to finish the game",
+    "placeholders": {
+      "turns": {
+        "type": "int"
+      }
+    }
+  },
+  "label_add_team": "Add Team",
+  "@label_add_team": {
+    "description": "The label to add a team"
+  },
+  "label_remove_team": "Remove Team",
+  "@label_remove_team": {
+    "description": "The label to remove a team"
+  },
+  "error_team_name": "Please enter team {teamNumber} name",
+  "@error_team_name": {
+    "description": "The label for points needed to win",
+    "placeholders": {
+      "teamNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "mode_targeted": "Targeted",
+  "@mode_targeted": {
+    "description": "The name for the targeted endless"
+  },
+  "mode_qne": "Quick 'n Easy",
+  "@mode_qne": {
+    "description": "The name for the quick and easy endless"
+  },
+  "mode_endless": "Endless",
+  "@mode_endless": {
+    "description": "The name for the endless endless"
+  }
+}

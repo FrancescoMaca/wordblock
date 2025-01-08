@@ -1,0 +1,23 @@
+{
+  "button_play": "Gioca!",
+  "title_teams": "Teams",
+  "title_modes": "Modalità",
+  "title_settings": "Opzioni",
+  "swipe": "SCROLLA",
+  "down": "GIU",
+  "to": "PER",
+  "start": "INIZIARE",
+  "title_have_fun": "Divertiti",
+  "title_setup_game": "Imposta Partita",
+  "label_swipe_down": "Scorri giu",
+  "label_round_time": "Tempo ogni turno: {time} secondi",
+  "label_skips_allowed": "Salta turni: {amount}",
+  "label_points_needed": "Punti per vincere: {points}",
+  "label_number_of_turns": "Numero di turni: {turns}",
+  "label_add_team": "Aggiungi team",
+  "label_remove_team": "Rimuovi team",
+  "error_team_name": "Inserisci il nome del team {teamNumber}",
+  "mode_targeted": "A Punti",
+  "mode_qne": "Facile e veloce",
+  "mode_endless": "Infinita"
+}

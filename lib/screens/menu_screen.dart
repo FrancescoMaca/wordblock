@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taboo/audio/audio_service.dart';
+import 'package:taboo/l10n/gen_l10n/app_localizations.dart';
 import 'package:taboo/screens/game_setup_screen.dart';
 import 'package:taboo/themes/theme.dart';
 
@@ -58,7 +59,7 @@ class _MenuScreenState extends State<MenuScreen> with WidgetsBindingObserver {
               ElevatedButton.icon(
                 icon: const Icon(Icons.play_arrow_rounded, size: 40),
                 label: Text(
-                  'Play',
+                  AppLocalizations.of(context).button_play,
                   style: Theme.of(context).textTheme.bodyMedium
                 ),
                 onPressed: _handlePlay,

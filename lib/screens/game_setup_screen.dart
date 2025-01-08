@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:taboo/audio/audio_service.dart';
 import 'package:taboo/components/scroll_physics.dart';
 import 'package:taboo/extensions/theme_ext.dart';
+import 'package:taboo/l10n/gen_l10n/app_localizations.dart';
 import 'package:taboo/models/game_mode.dart';
 import 'package:taboo/models/game_settings.dart';
 import 'package:taboo/screens/game_screen.dart';
@@ -78,7 +79,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
     setState(() {
       for (int i = 0; i < _numberOfTeams; i++) {
         if (_teamControllers[i].text.trim().isEmpty) {
-          _teamErrors[i] = 'Please enter team ${i + 1} name';
+          _teamErrors[i] = AppLocalizations.of(context).error_team_name(i + 1);
           isValid = false;
         } else {
           _teamErrors[i] = null;
@@ -127,7 +128,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("Game Setup", style: Theme.of(context).textTheme.titleMedium),
+        title: Text(AppLocalizations.of(context).title_setup_game, style: Theme.of(context).textTheme.titleMedium),
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
@@ -184,7 +185,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
           top: -60,
           left: 0,
           child: Text(
-            'Settings',
+            AppLocalizations.of(context).title_settings,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: const Color.fromARGB(66, 92, 0, 162)
             ),
@@ -206,7 +207,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
               },
             ),
             Text(
-              'Round Time: $_selectedTime seconds',
+              AppLocalizations.of(context).label_round_time(_selectedTime),
               style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
@@ -223,7 +224,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
               },
             ),
             Text(
-              'Skips Allowed: $_selectedSkips',
+              AppLocalizations.of(context).label_skips_allowed(_selectedSkips),
               style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             if (_selectedMode == GameMode.targeted)
@@ -243,7 +244,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
               ),
             if (_selectedMode == GameMode.targeted)
               Text(
-                'Points needed: $_targetPoints',
+                AppLocalizations.of(context).label_points_needed(_targetPoints),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
               ),
             if (_selectedMode == GameMode.quick)
@@ -263,7 +264,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
               ),
             if (_selectedMode == GameMode.quick)
               Text(
-                'Number of turns: $_numberOfRounds',
+                AppLocalizations.of(context).label_number_of_turns(_numberOfRounds),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
               ),
           ],
@@ -300,7 +301,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
           children: [
             if (!hideSwipeHint || centerContent) const SizedBox(),
             if (child != null) child
-            else Text('Have fun!', style: Theme.of(context).textTheme.titleLarge),
+            else Text(AppLocalizations.of(context).title_have_fun, style: Theme.of(context).textTheme.titleLarge),
             if (!hideSwipeHint) _buildSwipeDownTag()
           ],
         ),
@@ -316,7 +317,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
           top: -60,
           left: 0,
           child: Text(
-            'Teams',
+            AppLocalizations.of(context).title_teams,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: const Color(0x425C00A2)
             ),
@@ -341,11 +342,12 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
                     borderSide: BorderSide(color: Colors.black, width: 3),
                     borderRadius: BorderRadius.all(Radius.circular(15))
                   ),
-                  errorBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red, width: 3)
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red.shade900, width: 3),
+                    borderRadius: const BorderRadius.all(Radius.circular(15))
                   ),
                   errorStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: Colors.redAccent
+                    color: Colors.red.shade900
                   )
                 ),
                 forceErrorText: _teamErrors[i],
@@ -360,13 +362,13 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
                   TextButton.icon(
                     onPressed: () => setState(() => _numberOfTeams--),
                     icon: const Icon(Icons.remove_circle_outline),
-                    label: const Text('Remove Team'),
+                    label: Text(AppLocalizations.of(context).label_remove_team),
                   ),
                 if (_numberOfTeams < 4)
                   TextButton.icon(
                     onPressed: () => setState(() => _numberOfTeams++),
                     icon: const Icon(Icons.add_circle_outline),
-                    label: const Text('Add Team'),
+                    label: Text(AppLocalizations.of(context).label_add_team),
                   ),
               ],
             ),
@@ -384,7 +386,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
           top: -60,
           right: 0,
           child: Text(
-            'Modes',
+            AppLocalizations.of(context).title_modes,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: const Color(0x425C00A2)
             ),
@@ -394,7 +396,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
           children: GameMode.values.map<Widget>((value) =>
             Column(
               children: [
-                _buildGameModeRow(title: value.text),
+                _buildGameModeRow(title: value.getLocalizedText(context)),
                 const SizedBox(height: 15)
               ],
             )
@@ -424,23 +426,26 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('SWIPE', style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).primaryColor
-            )),
+            Text(
+              AppLocalizations.of(context).swipe, 
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).primaryColor
+              )
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('DOWN', style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                Text(AppLocalizations.of(context).down, style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: Theme.of(context).primaryColor
                 )),
-                Text('TO', style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                Text(AppLocalizations.of(context).to, style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: Theme.of(context).highlightColor
                 )),
               ],
             ),
             Row(
               children: [
-                Text('START', style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                Text(AppLocalizations.of(context).start, style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: Theme.of(context).highlightColor
                 )),
                 Icon(
@@ -464,7 +469,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
         const Icon(Icons.arrow_downward_rounded, size: 20),
         const SizedBox(width: 10),
         Text(
-          'swipe down',
+          AppLocalizations.of(context).label_swipe_down,
           style: Theme.of(context).textTheme.labelSmall,
         ),
         const SizedBox(width: 10),
@@ -477,7 +482,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
   Widget _buildGameModeRow({required String title}) {
     return GestureDetector(
       onTap: () {
-        final mode = GameMode.values.firstWhere((gm) => gm.text == title);
+        final mode = GameMode.values.firstWhere((gm) => gm.getLocalizedText(context) == title);
         
         setState(() {
           _selectedMode = mode;
@@ -487,7 +492,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         decoration: BoxDecoration(
-          color: _selectedMode.text == title ? Theme.of(context).highlightColor : Colors.white.withAlpha(40),
+          color: _selectedMode.getLocalizedText(context) == title ? Theme.of(context).highlightColor : Colors.white.withAlpha(40),
           border: Border.all(color: Colors.black, width: 3),
           borderRadius: BorderRadius.circular(15),
           

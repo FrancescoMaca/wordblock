@@ -23,7 +23,7 @@ class AudioService {
   Future<void> startSoundtrack() async {
     soundtrackPlayer.seek(Duration.zero);
     soundtrackPlayer.setReleaseMode(ReleaseMode.loop);
-    await soundtrackPlayer.play(AssetSource('sounds/soundtrack.mp3'));
+    await soundtrackPlayer.play(AssetSource('sounds/soundtrack2.mp3'));
   }
 
   Future<void> resumeSoundtrack() async {
