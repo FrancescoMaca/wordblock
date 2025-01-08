@@ -98,6 +98,7 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
 
   void _endRound() {
     _timer?.cancel();
+    _nextCard();
     setState(() {
       _isPlaying = false;
       teamScores[currentTeamIndex] += _roundScore;
