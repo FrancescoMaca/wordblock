@@ -125,6 +125,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -149,8 +150,10 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
       body: PageView(
         controller: _pageController,
         scrollDirection: Axis.vertical,
-        physics: const StiffScrollPhysics().applyTo(
-          const ClampingScrollPhysics(),
+        physics: const StiffScrollPhysics(
+          parent: ClampingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
         ),
         children: [
           _buildPage(

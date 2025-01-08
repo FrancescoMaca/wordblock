@@ -10,8 +10,8 @@ class StiffScrollPhysics extends ScrollPhysics {
 
   @override
   SpringDescription get spring => const SpringDescription(
-    mass: 20,     // Increase for more "weight" feeling
-    stiffness: 300, // Increase for more resistance
+    mass: 20,        // Increase for more "weight" feeling
+    stiffness: 300,  // Increase for more resistance
     damping: 0.5,    // Increase for less "bounce"
   );
 }

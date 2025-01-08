@@ -1,27 +1,39 @@
 import 'package:csv/csv.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:taboo/components/taboo_card.dart';
 
 class TabooService {
   Future<List<TabooCard>> loadTabooCards(BuildContext context) async {
     try {
-      final String fileContent = await DefaultAssetBundle.of(context).loadString('assets/words.csv');
+      final langCode = Localizations.localeOf(context).languageCode;
+
+      if (kDebugMode) {
+        debugPrint('language code: $langCode');
+      }
+
+      final String fileContent = await DefaultAssetBundle.of(context).loadString('assets/words/words_$langCode.csv');
       
       const csvConverter = CsvToListConverter(
-          shouldParseNumbers: false,
-          fieldDelimiter: ',',
-          eol: '\n'
+        shouldParseNumbers: false,
+        fieldDelimiter: ',',
+        eol: '\n'
       );
 
       final List<List<dynamic>> csvData = csvConverter.convert(fileContent);
       
-      // Skip the header row and convert each row to a TabooCard
       final cards = csvData.skip(1).map((row) => TabooCard.fromCSV(row)).toList();
-      print("Loaded ${cards.length} cards successfully");
+
+      if (kDebugMode) {
+        debugPrint("Loaded ${cards.length} cards successfully");
+      }
+      
       return cards;
       
     } catch (e) {
-      print('Error loading taboo cards: $e');
+      if (kDebugMode) {
+        debugPrint('Error loading taboo cards: $e');
+      }
       return [];
     }
   }

@@ -66,6 +66,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get label_remove_team => 'Remove Team';
 
   @override
+  String get label_round_score => 'Round Score:';
+
+  @override
+  String get label_skips_left => 'Skips Left:';
+
+  @override
+  String label_turn_of(String name) {
+    return '$name\'s Turn';
+  }
+
+  @override
+  String get label_current_scores => 'Current Scores';
+
+  @override
+  String label_turn_number(int currentTurn, int totalTurns) {
+    return 'Turn $currentTurn of $totalTurns';
+  }
+
+  @override
+  String label_helper_targeted_mode(int maxPoints) {
+    return 'First to $maxPoints points wins!';
+  }
+
+  @override
+  String get label_start_round => 'Start Round';
+
+  @override
   String error_team_name(int teamNumber) {
     return 'Please enter team $teamNumber name';
   }

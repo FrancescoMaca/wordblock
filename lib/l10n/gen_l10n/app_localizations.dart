@@ -197,6 +197,48 @@ abstract class AppLocalizations {
   /// **'Remove Team'**
   String get label_remove_team;
 
+  /// The label to indicate the score obtained this round
+  ///
+  /// In en, this message translates to:
+  /// **'Round Score:'**
+  String get label_round_score;
+
+  /// The label to indicate the amount of skips left
+  ///
+  /// In en, this message translates to:
+  /// **'Skips Left:'**
+  String get label_skips_left;
+
+  /// The name of whose turn it is
+  ///
+  /// In en, this message translates to:
+  /// **'{name}\'s Turn'**
+  String label_turn_of(String name);
+
+  /// The label for the current scores
+  ///
+  /// In en, this message translates to:
+  /// **'Current Scores'**
+  String get label_current_scores;
+
+  /// The label for the current turn out of the total turns
+  ///
+  /// In en, this message translates to:
+  /// **'Turn {currentTurn} of {totalTurns}'**
+  String label_turn_number(int currentTurn, int totalTurns);
+
+  /// The helper label to explain how the targeted mode works
+  ///
+  /// In en, this message translates to:
+  /// **'First to {maxPoints} points wins!'**
+  String label_helper_targeted_mode(int maxPoints);
+
+  /// The helper label to explain how the targeted mode works
+  ///
+  /// In en, this message translates to:
+  /// **'Start Round'**
+  String get label_start_round;
+
   /// The label for points needed to win
   ///
   /// In en, this message translates to:

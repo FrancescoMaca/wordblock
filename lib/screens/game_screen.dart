@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:taboo/audio/audio_service.dart';
+import 'package:taboo/components/game_button.dart';
 import 'package:taboo/components/taboo_card.dart';
+import 'package:taboo/l10n/gen_l10n/app_localizations.dart';
 import 'package:taboo/models/game_mode.dart';
 import 'package:taboo/models/game_settings.dart';
 import 'package:taboo/screens/victory_screen.dart';
@@ -39,14 +41,20 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
   void initState() {
     super.initState();
     AudioService.instance.stopSoundtrack();
-    _loadCards();
     _secondsLeft = widget.settings.timeLimit;
     _skipsLeft = widget.settings.skipsAllowed;
     teamScores = List.filled(widget.settings.teamNames.length, 0);
   }
 
+  // Need this to load cards
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
-  Future<void> _loadCards() async {
+    _loadCards();
+  }
+
+  Future<void> _loadCards() async {    
     final loadedCards = await _tabooService.loadTabooCards(context);
     setState(() {
       cards = loadedCards;
@@ -95,7 +103,6 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
       teamScores[currentTeamIndex] += _roundScore;
       _turnsPlayed++;
 
-      // Check win conditions based on game mode
       if (widget.settings.mode == GameMode.quick && _turnsPlayed >= widget.settings.numberOfTurns) {
         _showVictoryScreen();
       } else if (widget.settings.mode == GameMode.targeted && 
@@ -209,8 +216,8 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildInfoCard('Round Score', _roundScore.toString()),
-        _buildInfoCard('Skips Left', _skipsLeft.toString()),
+        _buildInfoCard(AppLocalizations.of(context).label_round_score,  _roundScore.toString()),
+        _buildInfoCard(AppLocalizations.of(context).label_skips_left, _skipsLeft.toString()),
       ],
     );
   }
@@ -306,8 +313,9 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildGameButton(
+          GameButton(
             icon: Icons.skip_next,
+            label: 'Skip',
             color: _skipsLeft > 0 ? Colors.orange : Colors.grey,
             onPressed: _skipsLeft > 0 ? () async {
               await AudioService.instance.play('skip_answer.mp3');
@@ -317,10 +325,11 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
               });
             } : null,
           ),
-          _buildGameButton(
+          GameButton(
             icon: Icons.check_circle,
+            label: 'Guessed',
             color: Colors.green,
-            size: 72,
+            defaultSize: 72,
             onPressed: () async {
               await AudioService.instance.play('correct_answer.mp3');
 
@@ -330,9 +339,10 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
               });
             },
           ),
-          _buildGameButton(
+          GameButton(
             icon: Icons.dangerous,
             color: Colors.red,
+            label: 'Ta-boo',
             onPressed: () async {
               await AudioService.instance.play('taboo_answer.mp3');
 
@@ -385,7 +395,7 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${widget.settings.teamNames[currentTeamIndex]}\'s Turn',
+                AppLocalizations.of(context).label_turn_of(widget.settings.teamNames[currentTeamIndex]),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Colors.white,
                   fontSize: 48,
@@ -394,7 +404,7 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
               const SizedBox(height: 24),
               if (widget.settings.mode == GameMode.quick)
                 Text(
-                  'Turn ${_turnsPlayed + 1}/${widget.settings.numberOfTurns}',
+                  AppLocalizations.of(context).label_turn_number(_turnsPlayed + 1, widget.settings.numberOfTurns),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Colors.white,
                     fontSize: 24,
@@ -402,10 +412,10 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
                 )
               else if (widget.settings.mode == GameMode.targeted)
                 Text(
-                  'First to ${widget.settings.maxPoints} points wins!',
+                  AppLocalizations.of(context).label_helper_targeted_mode(widget.settings.maxPoints),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Colors.white,
-                    fontSize: 24,
+                    fontSize: 20,
                   ),
                 ),
               const SizedBox(height: 48),
@@ -418,7 +428,7 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
                 child: Column(
                   children: [
                     Text(
-                      'Current Scores',
+                      AppLocalizations.of(context).label_current_scores,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.white,
                       ),
@@ -452,7 +462,7 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
                 ),
                 child: Text(
-                  'Start Round',
+                  AppLocalizations.of(context).label_start_round,
                   style: Theme.of(context).textTheme.titleMedium
                 ),
               ),
@@ -524,47 +534,7 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
       ],
     );
   }
-
-  Widget _buildGameButton({
-    required IconData icon,
-    required Color color,
-    required VoidCallback? onPressed,
-    double size = 56,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onPressed,
-          borderRadius: BorderRadius.circular(size),
-          child: Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color,
-            ),
-            child: Icon(
-              icon,
-              color: Colors.white,
-              size: size * 0.6,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
+  
   void _nextCard() {
     setState(() {
       currentCardIndex = (currentCardIndex + 1) % cards.length;

@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "button_play": "Play!",
   "@button_play": {
     "description": "The play button in the home screen"
@@ -86,6 +87,53 @@
   "label_remove_team": "Remove Team",
   "@label_remove_team": {
     "description": "The label to remove a team"
+  },
+  "label_round_score": "Round Score:",
+  "@label_round_score": {
+    "description": "The label to indicate the score obtained this round"
+  },
+  "label_skips_left": "Skips Left:",
+  "@label_skips_left": {
+    "description": "The label to indicate the amount of skips left"
+  },
+  "label_turn_of": "{name}'s Turn",
+  "@label_turn_of": {
+    "description": "The name of whose turn it is",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "label_current_scores": "Current Scores",
+  "@label_current_scores": {
+    "description": "The label for the current scores"
+  },
+  "label_turn_number": "Turn {currentTurn} of {totalTurns}",
+  "@label_turn_number": {
+    "description": "The label for the current turn out of the total turns",
+    "placeholders": {
+      "currentTurn": {
+        "type": "int"
+      },
+      "totalTurns": {
+        "type": "int"
+      }
+    }
+  },
+  "label_helper_targeted_mode": "First to {maxPoints} points wins!",
+  "@label_helper_targeted_mode": {
+    "description": "The helper label to explain how the targeted mode works",
+    "placeholders": {
+      "maxPoints": {
+        "type": "int"
+      }
+    }
+  },
+
+  "label_start_round": "Start Round",
+  "@label_start_round": {
+    "description": "The helper label to explain how the targeted mode works"
   },
   "error_team_name": "Please enter team {teamNumber} name",
   "@error_team_name": {
