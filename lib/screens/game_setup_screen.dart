@@ -396,14 +396,29 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
           )
         ),
         Column(
-          children: GameMode.values.map<Widget>((value) =>
+          children: [
+            // First, your existing list of modes
             Column(
-              children: [
-                _buildGameModeRow(title: value.getLocalizedText(context)),
-                const SizedBox(height: 15)
-              ],
+              children: GameMode.values.map<Widget>((value) =>
+                Column(
+                  children: [
+                    _buildGameModeRow(title: value.getLocalizedText(context)),
+                    const SizedBox(height: 15)
+                  ],
+                )
+              ).toList(),
+            ),
+            const SizedBox(height: 20),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child: Text(
+                _selectedMode.getLocalizedDescription(context),
+                key: ValueKey(_selectedMode),
+                style: Theme.of(context).textTheme.bodySmall,
+                textAlign: TextAlign.center,
+              ),
             )
-          ).toList(),
+          ],
         )
       ],
     );
@@ -483,22 +498,25 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
   }
 
   Widget _buildGameModeRow({required String title}) {
+    GameMode mode = GameMode.values.firstWhere(
+      (gm) => gm.getLocalizedText(context) == title
+    );
+
     return GestureDetector(
       onTap: () {
-        final mode = GameMode.values.firstWhere((gm) => gm.getLocalizedText(context) == title);
-        
         setState(() {
           _selectedMode = mode;
         });
-
+        HapticFeedback.mediumImpact();
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         decoration: BoxDecoration(
-          color: _selectedMode.getLocalizedText(context) == title ? Theme.of(context).highlightColor : Colors.white.withAlpha(40),
+          color: _selectedMode == mode
+              ? Theme.of(context).highlightColor.withAlpha(200)
+              : Colors.white.withAlpha(40),
           border: Border.all(color: Colors.black, width: 3),
           borderRadius: BorderRadius.circular(15),
-          
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

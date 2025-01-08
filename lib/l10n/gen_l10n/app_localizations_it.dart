@@ -105,4 +105,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get mode_endless => 'Infinita';
+
+  @override
+  String get mode_targeted_description => 'Corri verso il punteggio obiettivo! Vince la squadra che raggiunge per prima i punti richiesti.';
+
+  @override
+  String get mode_qne_description => 'Gioca un numero fisso di turni! Ogni squadra si alterna fino al completamento dei round. Perfetto per una partita veloce.';
+
+  @override
+  String get mode_endless_description => 'Continua a giocare quanto vuoi! Nessun limite di round o punteggio obiettivo. Puro divertimento senza fine.';
 }

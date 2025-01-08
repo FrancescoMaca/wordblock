@@ -105,4 +105,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mode_endless => 'Endless';
+
+  @override
+  String get mode_targeted_description => 'Race to achieve a target score! First team to reach the required points wins the game.';
+
+  @override
+  String get mode_qne_description => 'Play a fixed number of rounds! Each team takes turns until all rounds are completed. Perfect for a quick game.';
+
+  @override
+  String get mode_endless_description => 'Keep playing as long as you want! No round limits or target scores. Just pure endless fun.';
 }

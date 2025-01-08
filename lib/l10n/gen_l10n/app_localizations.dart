@@ -262,6 +262,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Endless'**
   String get mode_endless;
+
+  /// Description of the targeted game mode
+  ///
+  /// In en, this message translates to:
+  /// **'Race to achieve a target score! First team to reach the required points wins the game.'**
+  String get mode_targeted_description;
+
+  /// Description of the quick and easy game mode
+  ///
+  /// In en, this message translates to:
+  /// **'Play a fixed number of rounds! Each team takes turns until all rounds are completed. Perfect for a quick game.'**
+  String get mode_qne_description;
+
+  /// Description of the endless game mode
+  ///
+  /// In en, this message translates to:
+  /// **'Keep playing as long as you want! No round limits or target scores. Just pure endless fun.'**
+  String get mode_endless_description;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

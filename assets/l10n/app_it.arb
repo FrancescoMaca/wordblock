@@ -27,5 +27,8 @@
   "error_team_name": "Inserisci il nome del team {teamNumber}",
   "mode_targeted": "A Punti",
   "mode_qne": "Facile e veloce",
-  "mode_endless": "Infinita"
+  "mode_endless": "Infinita",
+  "mode_targeted_description": "Corri verso il punteggio obiettivo! Vince la squadra che raggiunge per prima i punti richiesti.",
+  "mode_qne_description": "Gioca un numero fisso di turni! Ogni squadra si alterna fino al completamento dei round. Perfetto per una partita veloce.",
+  "mode_endless_description": "Continua a giocare quanto vuoi! Nessun limite di round o punteggio obiettivo. Puro divertimento senza fine."
 }

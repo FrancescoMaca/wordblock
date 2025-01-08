@@ -480,8 +480,8 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
     return Container(
       width: containerWidth,
       constraints: const BoxConstraints(
-        maxWidth: 120, // Maximum width
-        minWidth: 80,  // Minimum width
+        maxWidth: 120,
+        minWidth: 80,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(

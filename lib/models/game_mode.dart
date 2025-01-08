@@ -21,4 +21,14 @@ enum GameMode {
     }
   }
 
+  String getLocalizedDescription(BuildContext context) {
+    switch (this) {
+      case GameMode.targeted:
+        return AppLocalizations.of(context).mode_targeted_description;
+      case GameMode.quick:
+        return AppLocalizations.of(context).mode_qne_description;
+      case GameMode.endless:
+        return AppLocalizations.of(context).mode_endless_description;
+    }
+  }
 }
