@@ -1,4 +1,4 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 
 class AudioService {
   static AudioService? _instance;
@@ -23,24 +23,21 @@ class AudioService {
     player = AudioPlayer();
     soundtrackPlayer = AudioPlayer();
 
-    player.setPlayerMode(PlayerMode.lowLatency);
-    soundtrackPlayer.setPlayerMode(PlayerMode.lowLatency);
-
-    player.setAudioContext(AudioContext(iOS: AudioContextIOS(category: AVAudioSessionCategory.soloAmbient)));
-
+    // Set volumes
     soundtrackPlayer.setVolume(0.1);
-    player.setVolume(1);
+    player.setVolume(1.0);
   }
 
   Future<void> startSoundtrack() async {
     await soundtrackPlayer.stop();
-    soundtrackPlayer.seek(Duration.zero);
-    soundtrackPlayer.setReleaseMode(ReleaseMode.loop);
-    await soundtrackPlayer.play(AssetSource('sounds/soundtrack.mp3'));
+    await soundtrackPlayer.seek(Duration.zero);
+    await soundtrackPlayer.setLoopMode(LoopMode.one);
+    await soundtrackPlayer.setAsset('assets/sounds/soundtrack.mp3');
+    await soundtrackPlayer.play();
   }
 
   Future<void> resumeSoundtrack() async {
-    await soundtrackPlayer.resume();
+    await soundtrackPlayer.play();
   }
 
   Future<void> pauseSoundtrack() async {
@@ -53,8 +50,9 @@ class AudioService {
 
   Future<void> play(String path) async {
     await player.stop();
-    player.seek(Duration.zero);
-    final asset = AssetSource('sounds/$path');
-    await player.play(asset);
+    await player.seek(Duration.zero);
+
+    await player.setAsset('assets/sounds/$path');
+    player.play();
   }
 }

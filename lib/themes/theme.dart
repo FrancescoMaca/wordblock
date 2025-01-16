@@ -21,7 +21,7 @@ class AppTheme {
     textTheme: TextTheme(
       titleLarge: const TextStyle(
         fontFamily: 'Anton',
-        fontSize: 100,
+        fontSize: 70,
         fontWeight: FontWeight.normal,
         color: Colors.black
       ),

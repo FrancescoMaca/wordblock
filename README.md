@@ -1,4 +1,4 @@
-# Ta-Boo
+# WordBlock
 
 A modern take on the classic party word-guessing game Taboo, built with Flutter.
 

@@ -52,7 +52,7 @@ class _MenuScreenState extends State<MenuScreen> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Ta-Boo',
+                'WordBlock',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 40),
