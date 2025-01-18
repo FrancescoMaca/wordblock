@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taboo/screens/menu_screen.dart';
-import 'package:taboo/themes/theme.dart';
+import 'package:wordblock/screens/menu_screen.dart';
+import 'package:wordblock/themes/theme.dart';
 
 class VictoryScreen extends StatelessWidget {
   final String winningTeam;

@@ -1,4 +1,4 @@
-import 'package:taboo/models/game_mode.dart';
+import 'package:wordblock/models/game_mode.dart';
 
 class GameSettings {
   final List<String> teamNames;

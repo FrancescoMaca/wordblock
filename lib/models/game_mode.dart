@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taboo/l10n/gen_l10n/app_localizations.dart';
+import 'package:wordblock/l10n/gen_l10n/app_localizations.dart';
 
 enum GameMode {
   targeted('Targeted'),

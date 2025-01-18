@@ -1,31 +1,31 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:taboo/audio/audio_service.dart';
-import 'package:taboo/components/game_button.dart';
-import 'package:taboo/components/taboo_card.dart';
-import 'package:taboo/l10n/gen_l10n/app_localizations.dart';
-import 'package:taboo/models/game_mode.dart';
-import 'package:taboo/models/game_settings.dart';
-import 'package:taboo/screens/victory_screen.dart';
-import 'package:taboo/services/taboo_service.dart';
-import 'package:taboo/themes/theme.dart';
+import 'package:wordblock/audio/audio_service.dart';
+import 'package:wordblock/components/game_button.dart';
+import 'package:wordblock/components/wordblock_card.dart';
+import 'package:wordblock/l10n/gen_l10n/app_localizations.dart';
+import 'package:wordblock/models/game_mode.dart';
+import 'package:wordblock/models/game_settings.dart';
+import 'package:wordblock/screens/victory_screen.dart';
+import 'package:wordblock/services/wordblock_service.dart';
+import 'package:wordblock/themes/theme.dart';
 
-class TabooGameScreen extends StatefulWidget {
+class WordBlockGameScreen extends StatefulWidget {
   final GameSettings settings;
   
-  const TabooGameScreen({
+  const WordBlockGameScreen({
     super.key,
     required this.settings,
   });
 
   @override
-  State<TabooGameScreen> createState() => _TabooGameScreenState();
+  State<WordBlockGameScreen> createState() => _WordBlockGameScreenState();
 }
 
-class _TabooGameScreenState extends State<TabooGameScreen> {
-  final TabooService _tabooService = TabooService();
-  List<TabooCard> cards = [];
+class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
+  final WordblockService _wordblockService = WordblockService();
+  List<WordBlockCard> cards = [];
   int currentCardIndex = 0;
   late List<int> teamScores;
   int currentTeamIndex = 0;
@@ -55,7 +55,7 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
   }
 
   Future<void> _loadCards() async {    
-    final loadedCards = await _tabooService.loadTabooCards(context);
+    final loadedCards = await _wordblockService.loadCards(context);
     setState(() {
       cards = loadedCards;
       cards.shuffle();
@@ -169,7 +169,7 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
               _buildGameInfo(),
               const SizedBox(height: 24),
               Expanded(
-                child: _buildTabooCard(currentCard),
+                child: _buildCard(currentCard),
               ),
               _buildActionButtons(),
             ],
@@ -250,7 +250,7 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
     );
   }
 
-  Widget _buildTabooCard(TabooCard card) {
+  Widget _buildCard(WordBlockCard card) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24),
       decoration: BoxDecoration(
@@ -345,7 +345,7 @@ class _TabooGameScreenState extends State<TabooGameScreen> {
             color: Colors.red,
             label: 'Ta-boo',
             onPressed: () async {
-              await AudioService.instance.play('taboo_answer.mp3');
+              await AudioService.instance.play('blocked_answer.mp3');
 
               setState(() {
                 _roundScore--;

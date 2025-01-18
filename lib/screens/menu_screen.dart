@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:taboo/audio/audio_service.dart';
-import 'package:taboo/l10n/gen_l10n/app_localizations.dart';
-import 'package:taboo/screens/game_setup_screen.dart';
-import 'package:taboo/themes/theme.dart';
+import 'package:wordblock/audio/audio_service.dart';
+import 'package:wordblock/l10n/gen_l10n/app_localizations.dart';
+import 'package:wordblock/screens/game_setup_screen.dart';
+import 'package:wordblock/themes/theme.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});

@@ -1,6 +1,6 @@
 {
-    "name": "taboo",
-    "short_name": "taboo",
+    "name": "WordBlock",
+    "short_name": "WordBlock",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
