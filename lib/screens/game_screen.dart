@@ -2,11 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wordblock/audio/audio_service.dart';
+import 'package:wordblock/components/challenge_card.dart';
 import 'package:wordblock/components/game_button.dart';
-import 'package:wordblock/components/wordblock_card.dart';
 import 'package:wordblock/l10n/gen_l10n/app_localizations.dart';
 import 'package:wordblock/models/game_mode.dart';
 import 'package:wordblock/models/game_settings.dart';
+import 'package:wordblock/screens/menu_screen.dart';
 import 'package:wordblock/screens/victory_screen.dart';
 import 'package:wordblock/services/wordblock_service.dart';
 import 'package:wordblock/themes/theme.dart';
@@ -25,7 +26,7 @@ class WordBlockGameScreen extends StatefulWidget {
 
 class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
   final WordblockService _wordblockService = WordblockService();
-  List<WordBlockCard> cards = [];
+  List<ChallengeCard> cards = [];
   int currentCardIndex = 0;
   late List<int> teamScores;
   int currentTeamIndex = 0;
@@ -66,6 +67,55 @@ class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
   void dispose() {
     _timer?.cancel();
     super.dispose();
+  }
+
+  void _showQuitConfirmDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        title: Text(
+          'Quit Game?',
+          style: Theme.of(context).textTheme.titleMedium
+        ),
+        content: Text(
+          'Are you sure you want to quit? Your progress will be lost.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              'Cancel',
+              style: Theme.of(context).textTheme.bodySmall
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MenuScreen()),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Text(
+                'Quit', 
+                style: Theme.of(context).textTheme.bodySmall
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   void _startRound() {
@@ -164,7 +214,17 @@ class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              _buildScoreBoard(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.exit_to_app, color: Colors.white),
+                    onPressed: _showQuitConfirmDialog,
+                  ),
+                  _buildScoreBoard(),
+                  const SizedBox(width: 48),
+                ],
+              ),
               const SizedBox(height: 16),
               _buildGameInfo(),
               const SizedBox(height: 24),
@@ -180,35 +240,51 @@ class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
   }
 
   Widget _buildScoreBoard() {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(AppTheme.borderRadius),
-        border: Border.all(color: Colors.white.withOpacity(0.2)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: _buildTeamScore(
-              widget.settings.teamNames[currentTeamIndex],
-              teamScores[currentTeamIndex],
-              true,
-            ),
-          ),
-          const SizedBox(width: 10),
-          _buildTimer(),
-          const SizedBox(width: 10),
-          Expanded(
-            child: _buildTeamScore(
-              widget.settings.teamNames[(currentTeamIndex + 1) % widget.settings.teamNames.length],
-              teamScores[(currentTeamIndex + 1) % widget.settings.teamNames.length],
-              false,
-            ),
-          ),
-        ],
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(AppTheme.borderRadius),
+          border: Border.all(color: Colors.white.withOpacity(0.2)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (widget.settings.teamNames.length <= 3) ...[
+              // For 2-3 teams: Show current team and next team
+              Expanded(
+                child: _buildTeamScore(
+                  widget.settings.teamNames[currentTeamIndex],
+                  teamScores[currentTeamIndex],
+                  true,
+                ),
+              ),
+              const SizedBox(width: 10),
+              _buildTimer(),
+              const SizedBox(width: 10),
+              Expanded(
+                child: _buildTeamScore(
+                  widget.settings.teamNames[(currentTeamIndex + 1) % widget.settings.teamNames.length],
+                  teamScores[(currentTeamIndex + 1) % widget.settings.teamNames.length],
+                  false,
+                ),
+              ),
+            ] else ...[
+              // For 4 teams: Show current team and timer only
+              Expanded(
+                child: _buildTeamScore(
+                  widget.settings.teamNames[currentTeamIndex],
+                  teamScores[currentTeamIndex],
+                  true,
+                ),
+              ),
+              const SizedBox(width: 10),
+              _buildTimer(),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -250,7 +326,7 @@ class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
     );
   }
 
-  Widget _buildCard(WordBlockCard card) {
+  Widget _buildCard(ChallengeCard card) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24),
       decoration: BoxDecoration(
@@ -343,7 +419,7 @@ class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
           GameButton(
             icon: Icons.dangerous,
             color: Colors.red,
-            label: 'Ta-boo',
+            label: 'Penalty',
             onPressed: () async {
               await AudioService.instance.play('blocked_answer.mp3');
 
@@ -357,12 +433,15 @@ class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
       ),
     );
   }
+  String _trimTeamName(String name) {
+    return name.length < 9 ? name : '${name.substring(0, 9)}...';
+  }
 
   Widget _buildTimer() {
     final isLowTime = _secondsLeft <= 10;
     return Container(
-      width: 90,
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+      width: 80,
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
         color: isLowTime ? Colors.red.withOpacity(0.2) : Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(AppTheme.borderRadius),
@@ -391,80 +470,66 @@ class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
             colors: AppTheme.backgroundGradientColors,
           ),
         ),
-        child: Center(
+        child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                AppLocalizations.of(context).label_turn_of(widget.settings.teamNames[currentTeamIndex]),
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.white,
-                  fontSize: 48,
-                ),
-              ),
-              const SizedBox(height: 24),
-              if (widget.settings.mode == GameMode.quick)
-                Text(
-                  AppLocalizations.of(context).label_turn_number(_turnsPlayed + 1, widget.settings.numberOfTurns),
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                )
-              else if (widget.settings.mode == GameMode.targeted)
-                Text(
-                  AppLocalizations.of(context).label_helper_targeted_mode(widget.settings.maxPoints),
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
-              const SizedBox(height: 48),
-              Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Column(
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      AppLocalizations.of(context).label_current_scores,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Wrap(
-                      spacing: 20,
-                      runSpacing: 20,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        for (int i = 0; i < widget.settings.teamNames.length; i++) ...[
-                          _buildTeamScoreCompact(
-                            widget.settings.teamNames[i],
-                            teamScores[i],
-                          ),
-                          if (i < widget.settings.teamNames.length - 1)
-                            const Text(
-                              'vs',
-                              style: TextStyle(color: Colors.white, fontSize: 24),
-                            ),
-                        ],
-                      ],
+                    IconButton(
+                      icon: const Icon(Icons.exit_to_app, color: Colors.white),
+                      onPressed: _showQuitConfirmDialog,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 48),
-              ElevatedButton(
-                onPressed: _startRound,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
-                ),
-                child: Text(
-                  AppLocalizations.of(context).label_start_round,
-                  style: Theme.of(context).textTheme.titleMedium
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context).label_turn_of(_trimTeamName(widget.settings.teamNames[currentTeamIndex])),
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Colors.white,
+                          fontSize: 48,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 24),
+                      if (widget.settings.mode == GameMode.quick)
+                        Text(
+                          AppLocalizations.of(context).label_turn_number(_turnsPlayed + 1, widget.settings.numberOfTurns),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        )
+                      else if (widget.settings.mode == GameMode.targeted)
+                        Text(
+                          AppLocalizations.of(context).label_helper_targeted_mode(widget.settings.maxPoints),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                      const SizedBox(height: 48),
+                      _buildScoresTable(),
+                      const SizedBox(height: 48),
+                      ElevatedButton(
+                        onPressed: _startRound,
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context).label_start_round,
+                          style: Theme.of(context).textTheme.titleMedium
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -474,16 +539,76 @@ class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
     );
   }
 
-  Widget _buildTeamScore(String team, int score, bool isActive) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final containerWidth = screenWidth * 0.25;
-
+  Widget _buildScoresTable() {
     return Container(
-      width: containerWidth,
-      constraints: const BoxConstraints(
-        maxWidth: 120,
-        minWidth: 80,
+      width: MediaQuery.of(context).size.width * 0.8,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(15),
       ),
+      child: Column(
+        children: [
+          Text(
+            AppLocalizations.of(context).label_current_scores,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 16),
+          widget.settings.teamNames.length <= 2
+              ? _buildTwoTeamsScores()
+              : _buildMultiTeamScores(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTwoTeamsScores() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildTeamScoreCompact(
+          widget.settings.teamNames[0],
+          teamScores[0],
+        ),
+        const SizedBox(width: 20),
+        const Text(
+          'vs',
+          style: TextStyle(color: Colors.white, fontSize: 24),
+        ),
+        const SizedBox(width: 20),
+        _buildTeamScoreCompact(
+          widget.settings.teamNames[1],
+          teamScores[1],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMultiTeamScores() {
+    // Grid layout for 3-4 teams
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 1,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+      ),
+      itemCount: widget.settings.teamNames.length,
+      itemBuilder: (context, index) {
+        return _buildTeamScoreCompact(
+          widget.settings.teamNames[index],
+          teamScores[index],
+        );
+      },
+    );
+  }
+
+  Widget _buildTeamScore(String team, int score, bool isActive) {
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         color: isActive ? Colors.white.withOpacity(0.1) : null,
@@ -507,7 +632,7 @@ class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
             score.toString(),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: Colors.white,
-              fontSize: 36,
+              fontSize: 28,
             ),
             textAlign: TextAlign.center,
           ),
@@ -517,22 +642,35 @@ class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
   }
 
   Widget _buildTeamScoreCompact(String team, int score) {
-    return Column(
-      children: [
-        Text(
-          team,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Colors.white,
+    return Container(
+      decoration: BoxDecoration(
+        color: currentTeamIndex == widget.settings.teamNames.indexOf(team)
+            ? Colors.white.withOpacity(0.2)
+            : Colors.transparent,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            team,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
           ),
-        ),
-        Text(
-          score.toString(),
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: Colors.white,
-            fontSize: 25,
+          Text(
+            score.toString(),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: Colors.white,
+              fontSize: 25,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
   

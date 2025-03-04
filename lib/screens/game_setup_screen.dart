@@ -68,7 +68,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
             4,
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeOut,
-          ).then(_startGameOrHandleErrors).catchError((e) => print(e));
+          ).then(_startGameOrHandleErrors).catchError((e) => debugPrint(e));
         }
       }
     }

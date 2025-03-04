@@ -1,10 +1,10 @@
 import 'package:csv/csv.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:wordblock/components/wordblock_card.dart';
+import 'package:wordblock/components/challenge_card.dart';
 
 class WordblockService {
-  Future<List<WordBlockCard>> loadCards(BuildContext context) async {
+  Future<List<ChallengeCard>> loadCards(BuildContext context) async {
     try {
       final langCode = Localizations.localeOf(context).languageCode;
 
@@ -22,7 +22,7 @@ class WordblockService {
 
       final List<List<dynamic>> csvData = csvConverter.convert(fileContent);
       
-      final cards = csvData.skip(1).map((row) => WordBlockCard.fromCSV(row)).toList();
+      final cards = csvData.skip(1).map((row) => ChallengeCard.fromCSV(row)).toList();
 
       if (kDebugMode) {
         debugPrint("Loaded ${cards.length} cards successfully");

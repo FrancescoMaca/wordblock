@@ -1,20 +1,20 @@
-class WordBlockCard {
+class ChallengeCard {
   final String mainWord;
   final List<String> forbiddenWords;
 
-  WordBlockCard({
+  ChallengeCard({
     required this.mainWord,
     required this.forbiddenWords,
   });
 
-  factory WordBlockCard.fromCSV(List<dynamic> row) {
+  factory ChallengeCard.fromCSV(List<dynamic> row) {
     try {
-      return WordBlockCard(
+      return ChallengeCard(
         mainWord: row[0].toString().trim(),
         forbiddenWords: row.sublist(1, 6).map((e) => e.toString().trim()).toList(),
       );
     } catch (e) {
-      return WordBlockCard(
+      return ChallengeCard(
         mainWord: "ERROR",
         forbiddenWords: ["Error loading card"],
       );
