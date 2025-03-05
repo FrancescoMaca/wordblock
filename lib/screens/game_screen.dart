@@ -1,31 +1,31 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wordblock/audio/audio_service.dart';
-import 'package:wordblock/components/challenge_card.dart';
-import 'package:wordblock/components/game_button.dart';
-import 'package:wordblock/l10n/gen_l10n/app_localizations.dart';
-import 'package:wordblock/models/game_mode.dart';
-import 'package:wordblock/models/game_settings.dart';
-import 'package:wordblock/screens/menu_screen.dart';
-import 'package:wordblock/screens/victory_screen.dart';
-import 'package:wordblock/services/wordblock_service.dart';
-import 'package:wordblock/themes/theme.dart';
+import 'package:verboten/audio/audio_service.dart';
+import 'package:verboten/components/challenge_card.dart';
+import 'package:verboten/components/game_button.dart';
+import 'package:verboten/l10n/gen_l10n/app_localizations.dart';
+import 'package:verboten/models/game_mode.dart';
+import 'package:verboten/models/game_settings.dart';
+import 'package:verboten/screens/menu_screen.dart';
+import 'package:verboten/screens/victory_screen.dart';
+import 'package:verboten/services/verboten_service.dart';
+import 'package:verboten/themes/theme.dart';
 
-class WordBlockGameScreen extends StatefulWidget {
+class VerbotenGameScreen extends StatefulWidget {
   final GameSettings settings;
   
-  const WordBlockGameScreen({
+  const VerbotenGameScreen({
     super.key,
     required this.settings,
   });
 
   @override
-  State<WordBlockGameScreen> createState() => _WordBlockGameScreenState();
+  State<VerbotenGameScreen> createState() => _VerbotenGameScreenState();
 }
 
-class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
-  final WordblockService _wordblockService = WordblockService();
+class _VerbotenGameScreenState extends State<VerbotenGameScreen> {
+  final VerbotenService _VerbotenService = VerbotenService();
   List<ChallengeCard> cards = [];
   int currentCardIndex = 0;
   late List<int> teamScores;
@@ -56,7 +56,7 @@ class _WordBlockGameScreenState extends State<WordBlockGameScreen> {
   }
 
   Future<void> _loadCards() async {    
-    final loadedCards = await _wordblockService.loadCards(context);
+    final loadedCards = await _VerbotenService.loadCards(context);
     setState(() {
       cards = loadedCards;
       cards.shuffle();

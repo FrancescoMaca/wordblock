@@ -1,4 +1,4 @@
-# WordBlock
+# Verboten
 
 A modern take on the classic party word-guessing game Taboo, built with Flutter.
 
@@ -30,8 +30,8 @@ A modern take on the classic party word-guessing game Taboo, built with Flutter.
 ## Installation
 Download from [releases](link) or build from source:
 ```bash
-git clone https://github.com/FrancescoMaca/ta-boo.git
-cd ta-boo
+git clone https://github.com/FrancescoMaca/verboten.git
+cd verboten
 flutter pub get
 flutter run
 ```

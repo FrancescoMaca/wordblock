@@ -1,5 +1,5 @@
-name: wordblock
-description: "A simple and fun party game."
+name: verboten
+description: "A simple and funny game."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -16,8 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.1.0+3
-
+version: 1.1.0+4
 
 environment:
   sdk: ^3.5.0
@@ -31,7 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -69,25 +67,24 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/words/words_it.csv
-    - assets/words/words_en.csv
-    - assets/sounds/success_setup.mp3
-    - assets/sounds/error_setup.mp3
-    - assets/sounds/correct_answer.mp3
-    - assets/sounds/blocked_answer.mp3
-    - assets/sounds/skip_answer.mp3
-    - assets/sounds/low_on_time.mp3
-    - assets/sounds/soundtrack.mp3
-
+  - assets/words/words_it.csv
+  - assets/words/words_en.csv
+  - assets/sounds/success_setup.mp3
+  - assets/sounds/error_setup.mp3
+  - assets/sounds/correct_answer.mp3
+  - assets/sounds/blocked_answer.mp3
+  - assets/sounds/skip_answer.mp3
+  - assets/sounds/low_on_time.mp3
+  - assets/sounds/soundtrack.mp3
 
   fonts:
-    - family: RobotoMono
-      fonts:
-        - asset: assets/fonts/roboto_mono_regular.ttf
-          weight: 400
-        - asset: assets/fonts/roboto_mono_bold.ttf
-          weight: 700
-    - family: Anton
-      fonts:
-        - asset: assets/fonts/anton_regular.ttf
-          weight: 400
+  - family: RobotoMono
+    fonts:
+    - asset: assets/fonts/roboto_mono_regular.ttf
+      weight: 400
+    - asset: assets/fonts/roboto_mono_bold.ttf
+      weight: 700
+  - family: Anton
+    fonts:
+    - asset: assets/fonts/anton_regular.ttf
+      weight: 400

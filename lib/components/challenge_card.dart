@@ -23,6 +23,6 @@ class ChallengeCard {
 
   @override
   String toString() {
-    return 'WordBlockCard(mainWord: $mainWord, forbidden: $forbiddenWords)';
+    return 'ChallengeCard(mainWord: $mainWord, forbidden: $forbiddenWords)';
   }
 }

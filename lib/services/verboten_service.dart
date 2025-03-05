@@ -1,9 +1,9 @@
 import 'package:csv/csv.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:wordblock/components/challenge_card.dart';
+import 'package:verboten/components/challenge_card.dart';
 
-class WordblockService {
+class VerbotenService {
   Future<List<ChallengeCard>> loadCards(BuildContext context) async {
     try {
       final langCode = Localizations.localeOf(context).languageCode;

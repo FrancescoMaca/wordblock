@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wordblock/audio/audio_service.dart';
-import 'package:wordblock/l10n/gen_l10n/app_localizations.dart';
-import 'package:wordblock/screens/game_setup_screen.dart';
-import 'package:wordblock/themes/theme.dart';
+import 'package:verboten/audio/audio_service.dart';
+import 'package:verboten/l10n/gen_l10n/app_localizations.dart';
+import 'package:verboten/screens/game_setup_screen.dart';
+import 'package:verboten/themes/theme.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -52,7 +52,7 @@ class _MenuScreenState extends State<MenuScreen> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'WordBlock',
+                'Verboten',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 40),

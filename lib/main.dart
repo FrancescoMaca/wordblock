@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:wordblock/extensions/theme_ext.dart';
-import 'package:wordblock/l10n/gen_l10n/app_localizations.dart';
-import 'package:wordblock/screens/menu_screen.dart';
-import 'package:wordblock/themes/theme.dart';
+import 'package:verboten/extensions/theme_ext.dart';
+import 'package:verboten/l10n/gen_l10n/app_localizations.dart';
+import 'package:verboten/screens/menu_screen.dart';
+import 'package:verboten/themes/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'WordBlock',
+      title: 'Verboten',
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

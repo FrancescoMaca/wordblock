@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wordblock/audio/audio_service.dart';
-import 'package:wordblock/components/scroll_physics.dart';
-import 'package:wordblock/extensions/theme_ext.dart';
-import 'package:wordblock/l10n/gen_l10n/app_localizations.dart';
-import 'package:wordblock/models/game_mode.dart';
-import 'package:wordblock/models/game_settings.dart';
-import 'package:wordblock/screens/game_screen.dart';
-import 'package:wordblock/screens/menu_screen.dart';
+import 'package:verboten/audio/audio_service.dart';
+import 'package:verboten/components/scroll_physics.dart';
+import 'package:verboten/extensions/theme_ext.dart';
+import 'package:verboten/l10n/gen_l10n/app_localizations.dart';
+import 'package:verboten/models/game_mode.dart';
+import 'package:verboten/models/game_settings.dart';
+import 'package:verboten/screens/game_screen.dart';
+import 'package:verboten/screens/menu_screen.dart';
 
 class GameSetupScreen extends StatefulWidget {
   const GameSetupScreen({super.key});
@@ -108,7 +108,7 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => WordBlockGameScreen(settings: settings),
+          builder: (context) => VerbotenGameScreen(settings: settings),
         ),
       );
     } else {

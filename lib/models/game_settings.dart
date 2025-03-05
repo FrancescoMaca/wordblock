@@ -1,4 +1,4 @@
-import 'package:wordblock/models/game_mode.dart';
+import 'package:verboten/models/game_mode.dart';
 
 class GameSettings {
   final List<String> teamNames;
